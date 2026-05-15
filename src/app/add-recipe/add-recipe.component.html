@@ -1,0 +1,97 @@
+<app-header></app-header>
+
+<div class="add-recipe-wrapper">
+  <div class="container my-5">
+    <div class="row justify-content-center">
+      <div class="col-lg-8">
+        <div class="form-card shadow-lg border-0 rounded-4">
+          <div class="form-header bg-success text-white p-4 rounded-top-4 text-center">
+            <h2 class="fw-bold mb-0">Share Your Recipe</h2>
+            <p class="mb-0 opacity-75">Let the world taste your culinary magic</p>
+          </div>
+          
+          <form [formGroup]="recipeForm" (ngSubmit)="onSubmit()" class="p-4 p-md-5 bg-white rounded-bottom-4">
+            <div class="row">
+              <!-- Basic Info -->
+              <div class="col-12 mb-4">
+                <label class="form-label fw-bold">Recipe Name</label>
+                <input formControlName="name" type="text" class="form-control form-control-lg" placeholder="e.g. Classic Margherita Pizza">
+              </div>
+
+              <!-- Time and Servings -->
+              <div class="col-md-4 mb-4">
+                <label class="form-label fw-bold">Prep Time (mins)</label>
+                <input formControlName="prepTimeMinutes" type="number" class="form-control">
+              </div>
+              <div class="col-md-4 mb-4">
+                <label class="form-label fw-bold">Cook Time (mins)</label>
+                <input formControlName="cookTimeMinutes" type="number" class="form-control">
+              </div>
+              <div class="col-md-4 mb-4">
+                <label class="form-label fw-bold">Servings</label>
+                <input formControlName="servings" type="number" class="form-control">
+              </div>
+
+              <!-- Difficulty and Cuisine -->
+              <div class="col-md-6 mb-4">
+                <label class="form-label fw-bold">Difficulty</label>
+                <select formControlName="difficulty" class="form-select">
+                  <option value="Easy">Easy</option>
+                  <option value="Medium">Medium</option>
+                  <option value="Hard">Hard</option>
+                </select>
+              </div>
+              <div class="col-md-6 mb-4">
+                <label class="form-label fw-bold">Cuisine</label>
+                <input formControlName="cuisine" type="text" class="form-control" placeholder="e.g. Italian">
+              </div>
+
+              <!-- Image Upload -->
+              <div class="col-12 mb-4">
+                <label class="form-label fw-bold">Recipe Image (Upload or Take Picture)</label>
+                <div class="upload-container border rounded-4 p-4 text-center bg-light">
+                    <input (change)="getFile($event)" type="file" class="form-control d-none" id="recipeImage" accept="image/*">
+                    <label for="recipeImage" class="cursor-pointer">
+                        <i class="fa-solid fa-cloud-arrow-up display-5 text-success mb-3"></i>
+                        <p class="mb-0 fw-bold" *ngIf="!recipeForm.value.image">Click to upload from gallery or capture</p>
+                        <p class="mb-0 text-success fw-bold" *ngIf="recipeForm.value.image">Image selected! <i class="fa-solid fa-check-circle"></i></p>
+                    </label>
+                </div>
+              </div>
+
+              <!-- Ingredients -->
+              <div class="col-12 mb-4">
+                <label class="form-label fw-bold">Ingredients (comma separated)</label>
+                <textarea formControlName="ingredients" class="form-control" rows="3" placeholder="Flour, Tomato, Cheese..."></textarea>
+              </div>
+
+              <!-- Instructions -->
+              <div class="col-12 mb-4">
+                <label class="form-label fw-bold">Instructions (comma separated)</label>
+                <textarea formControlName="instructions" class="form-control" rows="4" placeholder="Step 1, Step 2, Step 3..."></textarea>
+              </div>
+
+              <!-- Nutrition and Type -->
+              <div class="col-md-6 mb-4">
+                <label class="form-label fw-bold">Calories per Serving</label>
+                <input formControlName="caloriesPerServing" type="number" class="form-control">
+              </div>
+              <div class="col-md-6 mb-4">
+                <label class="form-label fw-bold">Meal Type (comma separated)</label>
+                <input formControlName="mealType" type="text" class="form-control" placeholder="Lunch, Dinner...">
+              </div>
+
+              <div class="col-12 mt-3">
+                <button type="submit" [disabled]="recipeForm.invalid" class="btn btn-success btn-lg w-100 rounded-pill py-3 fw-bold shadow-sm">
+                  Publish Recipe
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<app-footer></app-footer>

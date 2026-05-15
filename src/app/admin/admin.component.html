@@ -1,0 +1,184 @@
+<app-header></app-header>
+
+<div class="container my-5 pt-4">
+    <div class="row">
+        <div class="col-12 mb-4">
+            <h1 class="fw-bold">Admin Dashboard</h1>
+            <p class="text-muted">Manage your recipes, users, and moderation queue.</p>
+        </div>
+    </div>
+
+    <!-- Tab Navigation -->
+    <div class="nav-wrapper mb-5 shadow-sm rounded-pill bg-light">
+        <ul class="nav nav-pills p-2 flex-nowrap overflow-auto" id="pills-tab" role="tablist">
+            <li class="nav-item" role="presentation">
+                <button class="nav-link rounded-pill px-4 text-nowrap" [class.active]="activeTab === 'recipes'" (click)="activeTab = 'recipes'">
+                    <i class="fa-solid fa-utensils me-2"></i> Recipes
+                </button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link rounded-pill px-4 text-nowrap" [class.active]="activeTab === 'users'" (click)="activeTab = 'users'">
+                    <i class="fa-solid fa-users me-2"></i> Users
+                </button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link rounded-pill px-4 text-nowrap" [class.active]="activeTab === 'testimonials'" (click)="activeTab = 'testimonials'">
+                    <i class="fa-solid fa-comment-dots me-2"></i> Feedbacks
+                </button>
+            </li>
+        </ul>
+    </div>
+
+    <!-- Tab Content -->
+    <div class="tab-content" id="pills-tabContent">
+        
+        <!-- Recipe Management Tab -->
+        <div *ngIf="activeTab === 'recipes'" class="animate-in">
+            <!-- Desktop Table -->
+            <div class="table-responsive bg-white rounded-4 shadow-sm p-4 d-none d-md-block">
+                <table class="table table-hover align-middle mb-0">
+                    <thead class="table-light">
+                        <tr>
+                            <th>Image</th>
+                            <th>Recipe Name</th>
+                            <th>Cuisine</th>
+                            <th class="text-center">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @for(recipe of allRecipes; track $index){
+                            <tr>
+                                <td>
+                                    <img [src]="recipe.image" class="rounded-3 shadow-sm" width="60" height="60" style="object-fit: cover;">
+                                </td>
+                                <td class="fw-bold">{{recipe.name}}</td>
+                                <td>
+                                    <span class="badge rounded-pill px-3" [class.bg-warning-subtle]="recipe.status === 'Pending'" [class.text-warning]="recipe.status === 'Pending'" [class.bg-success-subtle]="recipe.status === 'Approved'" [class.text-success]="recipe.status === 'Approved'">
+                                        {{recipe.status}}
+                                    </span>
+                                </td>
+                                <td class="text-center">
+                                    <div class="d-flex justify-content-center gap-2">
+                                        <button (click)="updateRecipeStatus(recipe._id, 'Approved')" class="btn btn-success btn-sm rounded-pill px-3 shadow-sm">Approve</button>
+                                        <button (click)="updateRecipeStatus(recipe._id, 'Rejected')" class="btn btn-outline-danger btn-sm rounded-pill px-3">Reject</button>
+                                        <button (click)="deleteRecipe(recipe._id)" class="btn btn-danger btn-sm rounded-circle p-2 border-0 ms-2">
+                                            <i class="fa-solid fa-trash-can"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Mobile Card View -->
+            <div class="d-md-none">
+                @for(recipe of allRecipes; track $index){
+                    <div class="bg-white rounded-4 shadow-sm p-3 mb-3">
+                        <div class="d-flex align-items-center mb-3">
+                            <img [src]="recipe.image" class="rounded-3 me-3" width="70" height="70" style="object-fit: cover;">
+                            <div class="flex-grow-1">
+                                <h6 class="fw-bold mb-1">{{recipe.name}}</h6>
+                                <span class="badge rounded-pill px-2 small" [class.bg-warning-subtle]="recipe.status === 'Pending'" [class.text-warning]="recipe.status === 'Pending'" [class.bg-success-subtle]="recipe.status === 'Approved'" [class.text-success]="recipe.status === 'Approved'">
+                                    {{recipe.status}}
+                                </span>
+                            </div>
+                            <button (click)="deleteRecipe(recipe._id)" class="btn btn-outline-danger btn-sm rounded-circle border-0">
+                                <i class="fa-solid fa-trash-can"></i>
+                            </button>
+                        </div>
+                        <div class="d-flex gap-2">
+                            <button (click)="updateRecipeStatus(recipe._id, 'Approved')" class="btn btn-success btn-sm w-50 rounded-pill shadow-sm">Approve</button>
+                            <button (click)="updateRecipeStatus(recipe._id, 'Rejected')" class="btn btn-outline-danger btn-sm w-50 rounded-pill">Reject</button>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+
+        <!-- User Approval Tab -->
+        <div *ngIf="activeTab === 'users'" class="animate-in">
+            <!-- Desktop Table -->
+            <div class="table-responsive bg-white rounded-4 shadow-sm p-4 d-none d-md-block">
+                <table class="table table-hover align-middle mb-0">
+                    <thead class="table-light">
+                        <tr>
+                            <th>Username</th>
+                            <th>Email</th>
+                            <th>Status</th>
+                            <th class="text-center">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @for(user of allUsers; track $index){
+                            <tr>
+                                <td class="fw-bold">{{user.username}}</td>
+                                <td>{{user.email}}</td>
+                                <td>
+                                    <span class="badge rounded-pill px-3" [class.bg-warning-subtle]="user.status === 'Pending'" [class.text-warning]="user.status === 'Pending'" [class.bg-success-subtle]="user.status === 'Approved'" [class.text-success]="user.status === 'Approved'">
+                                        {{user.status}}
+                                    </span>
+                                </td>
+                                <td class="text-center">
+                                    <div class="d-flex justify-content-center gap-2">
+                                        <button (click)="updateUserStatus(user._id, 'Approved')" class="btn btn-success btn-sm rounded-pill px-3 shadow-sm">Approve</button>
+                                        <button (click)="updateUserStatus(user._id, 'Rejected')" class="btn btn-outline-danger btn-sm rounded-pill px-3">Reject</button>
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Mobile Card View -->
+            <div class="d-md-none">
+                @for(user of allUsers; track $index){
+                    <div class="bg-white rounded-4 shadow-sm p-3 mb-3">
+                        <div class="d-flex justify-content-between align-items-center mb-2">
+                            <h6 class="fw-bold mb-0">{{user.username}}</h6>
+                            <span class="badge rounded-pill px-2 small" [class.bg-warning-subtle]="user.status === 'Pending'" [class.text-warning]="user.status === 'Pending'" [class.bg-success-subtle]="user.status === 'Approved'" [class.text-success]="user.status === 'Approved'">
+                                {{user.status}}
+                            </span>
+                        </div>
+                        <p class="text-muted small mb-3">{{user.email}}</p>
+                        <div class="d-flex gap-2">
+                            <button (click)="updateUserStatus(user._id, 'Approved')" class="btn btn-success btn-sm w-50 rounded-pill shadow-sm">Approve</button>
+                            <button (click)="updateUserStatus(user._id, 'Rejected')" class="btn btn-outline-danger btn-sm w-50 rounded-pill">Reject</button>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+
+        <!-- Testimony Moderation Tab -->
+        <div *ngIf="activeTab === 'testimonials'" class="animate-in">
+            <div class="row g-4">
+                @for(testimony of allTestimonials; track $index){
+                    <div class="col-md-6">
+                        <div class="card border-0 shadow-sm rounded-4 p-4 h-100">
+                            <div class="d-flex justify-content-between align-items-start mb-3">
+                                <div>
+                                    <h5 class="fw-bold mb-1">{{testimony.name}}</h5>
+                                    <small class="text-muted">{{testimony.email}}</small>
+                                </div>
+                                <span class="badge rounded-pill px-3" [class.bg-warning-subtle]="testimony.status === 'Pending'" [class.text-warning]="testimony.status === 'Pending'" [class.bg-success-subtle]="testimony.status === 'Approved'" [class.text-success]="testimony.status === 'Approved'">
+                                    {{testimony.status}}
+                                </span>
+                            </div>
+                            <p class="text-muted italic flex-grow-1">"{{testimony.message}}"</p>
+                            <div class="d-flex gap-2 mt-4">
+                                <button (click)="updateTestimonyStatus(testimony._id, 'Approved')" class="btn btn-success w-50 rounded-pill shadow-sm">Approve</button>
+                                <button (click)="updateTestimonyStatus(testimony._id, 'Rejected')" class="btn btn-outline-danger w-50 rounded-pill">Reject</button>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<app-footer></app-footer>

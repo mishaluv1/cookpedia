@@ -1,0 +1,85 @@
+<app-header></app-header>
+
+<div class="login-wrapper py-5">
+  <div class="container">
+    <div class="row align-items-center g-5">
+      <div class="col-lg-6">
+        <div class="login-card">
+          <div class="brand">
+            <div class="brand-name text-success">Cookpedia</div>
+          </div>
+
+          <div class="login-header">
+            <h1>Welcome Back</h1>
+            <p>Log in to your account to continue</p>
+          </div>
+
+          <form class="login-form" (ngSubmit)="onSubmit()">
+            <div class="field-group">
+              <label for="email">Email Address</label>
+              <div class="input-wrapper">
+                <i class="fa-solid fa-envelope input-icon"></i>
+                <input
+                  type="email"
+                  id="email"
+                  name="email"
+                  [(ngModel)]="email"
+                  placeholder="example@mail.com"
+                  required
+                />
+              </div>
+            </div>
+
+            <div class="field-group">
+              <label for="password">Password</label>
+              <div class="input-wrapper">
+                <i class="fa-solid fa-lock input-icon"></i>
+                <input
+                  [type]="showPassword ? 'text' : 'password'"
+                  id="password"
+                  name="password"
+                  [(ngModel)]="password"
+                  placeholder="••••••••"
+                  required
+                />
+                <button type="button" class="toggle-pw" (click)="togglePassword()" style="position: absolute; right: 1rem; top: 50%; transform: translateY(-50%); background: none; border: none; color: #198754; cursor: pointer;">
+                  <i class="fa-solid" [class.fa-eye]="!showPassword" [class.fa-eye-slash]="showPassword"></i>
+                </button>
+              </div>
+            </div>
+
+            <button type="submit" class="submit-btn" [class.loading]="isLoading">
+              <span *ngIf="!isLoading">Sign In</span>
+              <span *ngIf="isLoading">Authenticating...</span>
+            </button>
+
+            <div *ngIf="errorMessage" class="error-banner" style="color: #dc3545; background: #fff5f5; padding: 1rem; border-radius: 12px; margin-top: 1rem; font-size: 0.9rem; text-align: center; border: 1px solid #ffebeb;">
+              {{ errorMessage }}
+            </div>
+          </form>
+
+          <p class="signup-prompt">
+            New here? <a routerLink="/register" style="color: #198754; font-weight: 600; text-decoration: none;">Join Cookpedia</a>
+          </p>
+        </div>
+      </div>
+
+      <div class="col-lg-6 d-none d-lg-block">
+        <div class="login-visual rounded-5 p-5">
+          <div class="floating-elements">
+            <div class="element el-1"></div>
+            <div class="element el-2"></div>
+            <div class="element el-3"></div>
+          </div>
+          <div class="visual-content">
+            <h2>Master the Art of Cooking</h2>
+            <p>Discover thousands of recipes from around the world and share your own culinary creations with the community.</p>
+          </div>
+          <div class="visual-bg"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<app-footer></app-footer>

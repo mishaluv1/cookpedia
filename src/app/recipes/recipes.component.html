@@ -1,0 +1,97 @@
+<app-header></app-header>
+
+<!-- my--5 top bottom margin set cheyyna -->
+<div class="container mb-5 pt-4">
+    <div class="row g-4">
+        <!-- Sidebar Filters -->
+        <div class="col-lg-3">
+            <!-- Filter Toggle for Mobile -->
+            <button class="btn btn-success d-lg-none w-100 mb-3 rounded-pill shadow-sm py-2" type="button" data-bs-toggle="collapse" data-bs-target="#filterCollapse">
+                <i class="fa-solid fa-filter me-2"></i> Show Filters
+            </button>
+
+            <div class="collapse d-lg-block" id="filterCollapse">
+                <div class="filter-card shadow-sm border-0">
+                    <h4 class="filter-title d-none d-lg-block">Filters</h4>
+                    
+                    <button (click)="getAllRecipes()" class="filter-btn mb-3">
+                        <i class="fa-solid fa-layer-group me-2"></i> All Recipes
+                    </button>
+
+                <div class="filter-section mb-4">
+                    <h6 class="text-muted small fw-bold mb-3">CUISINE TYPE</h6>
+                    <div class="d-flex flex-column gap-1">
+                        @for(cusine of cusineArray ; track $index){
+                            <button (click)="filterAllRecipes('cuisine',cusine)" class="filter-btn">
+                                {{cusine}}
+                            </button>
+                        }
+                    </div>
+                </div>
+
+                <div class="filter-section">
+                    <h6 class="text-muted small fw-bold mb-3">MEAL TYPE</h6>
+                    <div class="d-flex flex-column gap-1">
+                        @for(meal of mealTypeArray ; track $index){
+                            <button (click)="filterAllRecipes('mealType',meal)" class="filter-btn">
+                                {{meal}}
+                            </button>
+                        }
+                    </div>
+                </div>
+            </div>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="col-lg-9">
+            <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center mb-5 gap-3">
+                <h2 class="fw-bold mb-0">Explore Recipes</h2>
+                <div class="search-wrapper shadow-sm">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                    <input [(ngModel)]="searchKey" type="text" class="search-input" placeholder="Search by name or cuisine...">
+                </div>
+            </div>
+
+            <div class="row g-4">
+                @if(allRecipes.length > 0){
+                    @for(receipe of allRecipes | search :searchKey | paginate: { itemsPerPage: 9, currentPage: p } ; track $index){
+                        <div class="col-sm-6 col-lg-4">
+                            <div class="recipe-card shadow-sm border-0" [routerLink]="['/recipe', receipe._id, 'view']">
+                                <div class="recipe-img-container">
+                                    <img class="recipe-img" [src]="receipe.image" alt="{{receipe.name}}">
+                                </div>
+                                <div class="card-body p-4">
+                                    <span class="badge bg-success-subtle text-success rounded-pill px-3 py-2 mb-2">{{receipe.cuisine}}</span>
+                                    <h5 class="fw-bold mb-0 text-truncate">{{receipe.name}}</h5>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                    
+                    @if((allRecipes | search : searchKey).length == 0){
+                        <div class="col-12 text-center py-5">
+                            <div class="p-5 bg-light rounded-5">
+                                <i class="fa-solid fa-utensils display-4 text-muted mb-3"></i>
+                                <h4 class="text-muted">Oops! No recipes found</h4>
+                                <p class="mb-0">Try adjusting your search or filters.</p>
+                            </div>
+                        </div>
+                    }
+                } @else {
+                    <div class="col-12 text-center py-5">
+                        <div class="spinner-border text-success" role="status">
+                            <span class="visually-hidden">Loading...</span>
+                        </div>
+                    </div>
+                }
+            </div>
+
+            <div class="pagination-container text-center">
+                <pagination-controls (pageChange)="p = $event"></pagination-controls>
+            </div>
+        </div>
+    </div>
+</div>
+
+<app-footer></app-footer>

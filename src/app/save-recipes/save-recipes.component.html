@@ -1,0 +1,39 @@
+<app-header></app-header>
+
+<div class="container my-5 pt-4">
+    <div class="row mb-5">
+        <div class="col-12">
+            <h1 class="fw-bold mb-2">My Saved Recipes</h1>
+            <p class="text-muted">Your personal collection of culinary inspirations.</p>
+        </div>
+    </div>
+
+    @if(allSavedRecipes.length > 0){
+        <div class="row g-4">
+            @for(recipe of allSavedRecipes; track $index){
+                <div class="col-sm-6 col-md-4 col-lg-3">
+                    <div class="recipe-card shadow-sm border-0 rounded-4 overflow-hidden bg-white h-100 position-relative">
+                        <div class="recipe-img-container" [routerLink]="['/recipe', recipe.recipeId, 'view']" style="cursor: pointer;">
+                            <img [src]="recipe.image" class="img-fluid w-100" [alt]="recipe.name" style="height: 200px; object-fit: cover;">
+                        </div>
+                        <div class="p-3">
+                            <h6 class="fw-bold mb-3 text-truncate">{{recipe.name}}</h6>
+                            <button (click)="removeRecipe(recipe._id)" class="btn btn-outline-danger w-100 rounded-pill btn-sm">
+                                <i class="fa-solid fa-trash-can me-2"></i> Remove
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    } @else {
+        <div class="text-center py-5 my-5 bg-light rounded-5 border-dashed">
+            <i class="fa-solid fa-bookmark display-1 text-muted mb-4 d-block opacity-25"></i>
+            <h3 class="fw-bold text-muted">No saved recipes yet</h3>
+            <p class="text-muted mb-4">Explore our delicious recipes and save your favorites!</p>
+            <a routerLink="/recipe" class="btn btn-success btn-lg rounded-pill px-5 shadow-sm">Explore Recipes</a>
+        </div>
+    }
+</div>
+
+<app-footer></app-footer>

@@ -1,0 +1,135 @@
+<app-header></app-header>
+
+<div class="container my-5 pt-4">
+    <!-- Breadcrumb -->
+    <nav aria-label="breadcrumb" class="mb-4">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a routerLink="/recipe" class="text-success text-decoration-none">Recipes</a></li>
+            <li class="breadcrumb-item active" aria-current="page">{{recipe.name}}</li>
+        </ol>
+    </nav>
+
+    <div class="row g-5">
+        <!-- Recipe Header & Image -->
+        <div class="col-lg-6">
+            <div class="recipe-img-wrapper position-relative rounded-5 overflow-hidden shadow-lg">
+                <img [src]="recipe.image" class="img-fluid w-100" [alt]="recipe.name" style="height: 500px; object-fit: cover;">
+                <span class="badge bg-success position-absolute top-0 end-0 m-4 px-4 py-2 rounded-pill shadow fs-6">
+                    {{recipe.cuisine}}
+                </span>
+            </div>
+        </div>
+
+        <!-- Recipe Content -->
+        <div class="col-lg-6">
+            <div class="d-flex justify-content-between align-items-start mb-3">
+                <h1 class="display-4 fw-bold text-dark mb-0">{{recipe.name}}</h1>
+                <button (click)="saveRecipe()" class="btn btn-outline-success rounded-circle p-3 shadow-sm border-2">
+                    <i class="fa-solid fa-bookmark fs-4"></i>
+                </button>
+            </div>
+            
+            <div class="d-flex gap-4 mb-4 text-muted">
+                <div class="stat-badge"><i class="fa-regular fa-clock me-2 text-success"></i>{{recipe.prepTimeMinutes + recipe.cookTimeMinutes}} mins</div>
+                <div class="stat-badge"><i class="fa-solid fa-users me-2 text-success"></i>{{recipe.servings}} servings</div>
+                <div class="stat-badge"><i class="fa-solid fa-fire me-2 text-success"></i>{{recipe.caloriesPerServing}} cal</div>
+            </div>
+
+            <div class="mb-5">
+                <h4 class="fw-bold mb-3 d-flex align-items-center">
+                    <span class="bg-success text-white rounded-circle d-flex align-items-center justify-content-center me-3" style="width: 32px; height: 32px; font-size: 0.9rem;">1</span>
+                    Ingredients
+                </h4>
+                <div class="row g-2">
+                    @for(item of recipe.ingredients; track $index){
+                        <div class="col-md-6">
+                            <div class="p-3 bg-light rounded-4 border-0 d-flex align-items-center">
+                                <i class="fa-solid fa-check text-success me-3"></i>
+                                <span>{{item}}</span>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+
+            <div>
+                <h4 class="fw-bold mb-3 d-flex align-items-center">
+                    <span class="bg-success text-white rounded-circle d-flex align-items-center justify-content-center me-3" style="width: 32px; height: 32px; font-size: 0.9rem;">2</span>
+                    Instructions
+                </h4>
+                <div class="d-flex flex-column gap-3">
+                    @for(step of recipe.instructions; track $index){
+                        <div class="p-4 bg-white border rounded-4 shadow-sm">
+                            <div class="small fw-bold text-success mb-1">STEP {{ $index + 1 }}</div>
+                            <p class="mb-0">{{step}}</p>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Review Section -->
+    <div class="row mt-5 pt-5">
+        <div class="col-lg-12">
+            <hr class="mb-5">
+            <div class="row">
+                <div class="col-md-5 mb-5 mb-md-0">
+                    <h2 class="fw-bold mb-4">Reviews & Ratings</h2>
+                    <div class="bg-light p-4 rounded-5 border-0 shadow-sm">
+                        <h5 class="fw-bold mb-3">Leave a Review</h5>
+                        <div class="mb-3">
+                            <label class="form-label small fw-bold">Rating</label>
+                            <select [(ngModel)]="userReview.rating" class="form-select rounded-pill">
+                                <option value="5">⭐⭐⭐⭐⭐ (5/5)</option>
+                                <option value="4">⭐⭐⭐⭐ (4/5)</option>
+                                <option value="3">⭐⭐⭐ (3/5)</option>
+                                <option value="2">⭐⭐ (2/5)</option>
+                                <option value="1">⭐ (1/5)</option>
+                            </select>
+                        </div>
+                        <div class="mb-4">
+                            <label class="form-label small fw-bold">Your Feedback</label>
+                            <textarea [(ngModel)]="userReview.message" class="form-control rounded-4" rows="4" placeholder="How was it? Did you make any changes?"></textarea>
+                        </div>
+                        <button (click)="addReview()" class="btn btn-success w-100 rounded-pill py-3 fw-bold shadow-sm">Submit Review</button>
+                    </div>
+                </div>
+                <div class="col-md-7 ps-md-5">
+                    <h3 class="fw-bold mb-4">Community Feedback</h3>
+                    @if(recipe?.reviews?.length > 0){
+                        <div class="d-flex flex-column gap-4">
+                            @for(rev of recipe.reviews; track $index){
+                                <div class="p-4 bg-white border rounded-4 shadow-sm">
+                                    <div class="d-flex justify-content-between align-items-start mb-2">
+                                        <div class="d-flex align-items-center">
+                                            <div class="rounded-circle bg-success text-white d-flex align-items-center justify-content-center me-3 fw-bold" style="width: 40px; height: 40px;">
+                                                {{rev.name.charAt(0).toUpperCase()}}
+                                            </div>
+                                            <div>
+                                                <h6 class="mb-0 fw-bold">{{rev.name}}</h6>
+                                                <small class="text-muted">{{rev.date | date:'mediumDate'}}</small>
+                                            </div>
+                                        </div>
+                                        <div class="text-warning small">
+                                            <i *ngFor="let star of [].constructor(rev.rating)" class="fa-solid fa-star"></i>
+                                        </div>
+                                    </div>
+                                    <p class="mb-0 text-muted mt-2 italic">"{{rev.message}}"</p>
+                                </div>
+                            }
+                        </div>
+                    } @else {
+                        <div class="text-center py-5 bg-light rounded-5 border-dashed">
+                            <i class="fa-regular fa-comments display-4 text-muted mb-3 d-block"></i>
+                            <h5 class="text-muted">No reviews yet</h5>
+                            <p class="text-muted small">Be the first to share your experience!</p>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<app-footer></app-footer>

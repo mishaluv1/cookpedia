@@ -1,0 +1,85 @@
+<app-header></app-header>
+
+<div class="container my-5 py-5">
+    <div class="row justify-content-center align-items-stretch g-5">
+        <!-- Left side: Form -->
+        <div class="col-lg-6">
+            <div class="card shadow-lg border-0 rounded-5 p-4 p-md-5 h-100">
+                <div class="text-center mb-4">
+                    <h3 class="fw-bold text-success">Cookpedia</h3>
+                    <p class="text-muted">Create an account to start your culinary journey.</p>
+                </div>
+                <form [formGroup]="registerform" (ngSubmit)="register()"
+                    class="h-100 d-flex flex-column justify-content-center">
+
+                    <div class="mb-3">
+                        <label class="form-label text-muted fw-semibold">Username</label>
+                        <input formControlName="username" class="form-control form-control-lg bg-light"
+                            placeholder="e.g. johndoe" type="text">
+                        @if(registerform.get('username')?.errors && registerform.get('username')?.touched){
+                        <small class="text-danger mt-1 d-block">*Invalid username (letters only)</small>
+                        }
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label text-muted fw-semibold">Email Address</label>
+                        <input formControlName="email" class="form-control form-control-lg bg-light"
+                            placeholder="name@example.com" type="email">
+                        @if(registerform.get('email')?.errors && registerform.get('email')?.touched){
+                        <small class="text-danger mt-1 d-block">*Invalid email address</small>
+                        }
+                    </div>
+
+                    <div class="mb-4">
+                        <label class="form-label text-muted fw-semibold">Password</label>
+                        <input formControlName="password" class="form-control form-control-lg bg-light"
+                            placeholder="Create a password" type="password">
+                        @if(registerform.get('password')?.errors && registerform.get('password')?.touched){
+                        <small class="text-danger mt-1 d-block">*Invalid password (alphanumeric only)</small>
+                        }
+                    </div>
+
+                    <button type="submit"
+                        class="btn btn-success btn-lg w-100 rounded-pill shadow-sm mb-3 mt-auto">Create Account</button>
+
+                    <div class="text-center mt-4">
+                        <div class="login-prompt">
+                            <span class="prompt-text">Already have an account?</span>
+                            <a routerLink="/login" class="login-link">
+                                Login
+                                <i class="fa-solid fa-arrow-right ms-2"></i>
+                            </a>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Right side: Image / Banner -->
+        <div class="col-lg-6 d-none d-lg-block">
+            <div class="register-hero position-relative rounded-5 overflow-hidden shadow-lg h-100"
+                style="min-height: 600px;">
+                <img src="https://img.freepik.com/premium-photo/3d-render-chef-kitchen-making-pizza_890887-2602.jpg"
+                    alt="Register Banner" class="w-100 h-100" style="object-fit: cover;">
+                <div class="hero-overlay position-absolute bottom-0 start-0 w-100 p-5 text-white"
+                    style="background: linear-gradient(transparent, rgba(0,0,0,0.8));">
+                    <h2 class="fw-bold display-5 mb-3">Join Our Community</h2>
+                    <p class="lead opacity-75">Discover thousands of hand-picked recipes and share your own culinary
+                        magic with the world.</p>
+                    <div class="d-flex gap-3 mt-4">
+                        <div class="stat text-center">
+                            <h4 class="fw-bold mb-0">10k+</h4>
+                            <small class="opacity-50">Recipes</small>
+                        </div>
+                        <div class="vr"></div>
+                        <div class="stat text-center">
+                            <h4 class="fw-bold mb-0">5k+</h4>
+                            <small class="opacity-50">Chefs</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<app-footer></app-footer>

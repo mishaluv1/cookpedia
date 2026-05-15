@@ -1,0 +1,52 @@
+<nav class="navbar navbar-expand-lg bg-success shadow-sm sticky-top">
+  <div class="container d-flex align-items-center">
+    <a class="navbar-brand text-light text-bolder" routerLink="/">
+      <h3>Cookpedia</h3>
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
+      aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavDropdown">
+      <ul class="text-light navbar-nav m-auto mb-2 mb-lg-3">
+        <li class="nav-item me-3">
+          <a class="nav-link active text-white" aria-current="page" routerLink="/">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-white" routerLink="/recipe">Receipes</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-white" routerLink="/about">About</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-white" routerLink="/contact">Contact</a>
+        </li>
+        <li *ngIf="loggedUser" class="nav-item">
+          <a class="nav-link text-white" routerLink="/add-recipe">Add Recipe</a>
+        </li>
+        <li *ngIf="loggedUser" class="nav-item">
+          <a class="nav-link text-white" routerLink="/saved-recipes">Saved</a>
+        </li>
+        <li *ngIf="loggedUser?.role === 'Admin'" class="nav-item">
+          <a class="nav-link text-white fw-bold" routerLink="/admin">Dashboard</a>
+        </li>
+
+      </ul>
+      <div class="ms-auto dropdown">
+        <button class="btn btn-success dropdown-toggle text-light" type="button" data-bs-toggle="dropdown"
+          aria-expanded="false">
+
+          <i class="fa-solid fa-user me-2"></i>
+          <span *ngIf="loggedUser">{{loggedUser.username}}</span>
+          <span *ngIf="!loggedUser">User</span>
+
+        </button>
+        <ul class="dropdown-menu">
+          <li *ngIf="!loggedUser"><a class="dropdown-item" routerLink="/login">Login</a></li>
+          <li *ngIf="!loggedUser"><a class="dropdown-item" routerLink="/register">Register</a></li>
+          <li *ngIf="loggedUser"><button class="dropdown-item" (click)="logout()">Logout</button></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</nav>

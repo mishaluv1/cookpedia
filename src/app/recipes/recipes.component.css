@@ -1,0 +1,132 @@
+.filter-card {
+    background: #f8f9fa;
+    border-radius: 24px;
+    padding: 2rem;
+}
+
+@media (min-width: 992px) {
+    .filter-card {
+        position: sticky;
+        top: 100px;
+    }
+}
+
+@media (max-width: 991px) {
+    .filter-card {
+        padding: 1.5rem;
+        margin-bottom: 2rem;
+    }
+}
+
+.filter-title {
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+    color: #333;
+}
+
+.filter-btn {
+    text-align: left;
+    padding: 12px 15px;
+    border-radius: 12px;
+    width: 100%;
+    margin-bottom: 5px;
+    transition: all 0.3s ease;
+    border: none;
+    background: transparent;
+    color: #666;
+    font-weight: 500;
+}
+
+.filter-btn:hover {
+    background: #e9f7ef;
+    color: #198754;
+    transform: translateX(5px);
+}
+
+.filter-btn.active {
+    background: #198754;
+    color: white;
+}
+
+.search-wrapper {
+    position: relative;
+    flex-grow: 1;
+    max-width: 500px;
+}
+
+.search-wrapper i {
+    position: absolute;
+    left: 1.25rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #198754;
+}
+
+.search-input {
+    width: 100%;
+    padding: 12px 12px 12px 3.5rem;
+    border-radius: 15px;
+    border: 2px solid #f1f1f1;
+    transition: all 0.3s ease;
+}
+
+.search-input:focus {
+    border-color: #198754;
+    box-shadow: 0 10px 20px rgba(25, 135, 84, 0.05);
+    outline: none;
+}
+
+.recipe-card {
+    border-radius: 20px;
+    overflow: hidden;
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    cursor: pointer;
+    background: white;
+    height: 100%;
+}
+
+.recipe-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.1) !important;
+}
+
+.recipe-img-container {
+    height: 220px;
+    overflow: hidden;
+}
+
+@media (max-width: 576px) {
+    .recipe-img-container {
+        height: 180px;
+    }
+}
+
+.recipe-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.recipe-card:hover .recipe-img {
+    transform: scale(1.1);
+}
+
+.pagination-container {
+    margin-top: 3rem;
+}
+
+::ng-deep .ngx-pagination .current {
+    background: #198754 !important;
+    border-radius: 8px;
+}
+
+::ng-deep .ngx-pagination a {
+    border-radius: 8px;
+    transition: all 0.2s ease;
+}
+
+::ng-deep .ngx-pagination a:hover {
+    background: #e9f7ef !important;
+    color: #198754 !important;
+}

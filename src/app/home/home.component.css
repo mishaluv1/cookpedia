@@ -1,0 +1,316 @@
+.hero-section {
+    animation: fadeIn 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+    background: linear-gradient(135deg, #198754 0%, #115c39 100%) !important;
+    padding: 80px 20px !important;
+    overflow: hidden;
+    position: relative;
+    border-radius: 0 0 50px 50px !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+}
+
+.hero-title {
+    font-size: clamp(2.5rem, 8vw, 4rem);
+    font-weight: 800;
+    line-height: 1.1;
+    letter-spacing: -0.04em;
+    background: linear-gradient(to right, #fff, #d1f7e3);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 1.5rem;
+}
+
+.hero-subtitle {
+    font-size: 1.1rem;
+    opacity: 0.9;
+    max-width: 500px;
+    margin-bottom: 2rem;
+}
+
+.hero-img-container {
+    position: relative;
+    z-index: 1;
+}
+
+.hero-img {
+    transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.hero-img:hover {
+    transform: rotate(-2deg) scale(1.05);
+}
+
+/* Responsiveness */
+@media (max-width: 991px) {
+    .hero-section {
+        text-align: center;
+        padding: 40px 15px !important;
+    }
+
+    .hero-subtitle {
+        margin: 0 auto 2rem;
+    }
+
+    .hero-img-container {
+        margin-top: 3rem;
+    }
+
+    .hero-img {
+        max-width: 100% !important;
+        margin-left: 0 !important;
+    }
+}
+
+@media (max-width: 576px) {
+    .hero-title {
+        font-size: 2.2rem;
+    }
+
+    .hero-section {
+        padding: 40px 10px !important;
+        border-radius: 0 0 30px 30px !important;
+    }
+
+    .hero-img {
+        max-width: 100% !important;
+        height: 220px !important;
+    }
+}
+
+/* Banner section */
+.banner-section {
+    height: auto !important;
+    min-height: 350px;
+    background-image: url('https://images.unsplash.com/photo-1498837167922-ddd27525d352?q=80&w=2070&auto=format&fit=crop');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    position: relative;
+    border-radius: 20px;
+    overflow: hidden;
+}
+
+.banner-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to right, rgba(0, 0, 0, 0.6) 0%, rgba(0, 0, 0, 0.1) 100%);
+    z-index: 1;
+    border-radius: 20px;
+}
+
+.banner-section .col-lg-5,
+.banner-section .col-lg-7 {
+    position: relative;
+    z-index: 2;
+}
+
+@media (max-width: 767px) {
+    .banner-section {
+        flex-direction: column;
+        height: auto !important;
+    }
+
+    .banner-section .col-lg-5 {
+        padding: 1rem !important;
+    }
+
+    .banner-section .bg-light {
+        padding: 1.5rem !important;
+        margin-top: 0 !important;
+    }
+}
+
+/* Download App section mobile fix */
+.download-section {
+    height: auto !important;
+    min-height: 350px;
+}
+
+@media (max-width: 767px) {
+    .download-section {
+        height: auto !important;
+        padding: 2rem 1rem !important;
+    }
+
+    .download-section img {
+        max-width: 100%;
+        height: auto;
+    }
+
+    .download-section .w-75 {
+        width: 100% !important;
+        max-width: 280px;
+    }
+}
+
+/* Recipe card mobile fix */
+@media (max-width: 575px) {
+    .recipe-card img {
+        height: 180px !important;
+    }
+}
+
+/* Popular Recipe Section */
+.popular-header {
+    gap: 0.5rem;
+}
+
+.popular-heading {
+    font-size: clamp(1.5rem, 5vw, 2.2rem);
+    font-weight: 800;
+    margin-bottom: 0.25rem;
+}
+
+.popular-subheading {
+    color: #6c757d;
+    font-weight: 400;
+}
+
+.view-all-link {
+    font-weight: 600;
+    color: #198754;
+    font-size: 1rem;
+    white-space: nowrap;
+    padding: 0.5rem 1rem;
+    border-radius: 50px;
+    transition: all 0.3s ease;
+}
+
+.view-all-link:hover {
+    background-color: #198754;
+    color: #fff;
+}
+
+@media (max-width: 575px) {
+    .popular-header {
+        text-align: center;
+        align-items: center !important;
+    }
+
+    .popular-title-group {
+        text-align: center;
+    }
+
+    .popular-heading {
+        font-size: 1.5rem;
+    }
+
+    .popular-subheading {
+        font-size: 0.85rem;
+    }
+
+    .view-all-link {
+        margin-top: 0.5rem !important;
+    }
+}
+
+.recipe-card {
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    cursor: pointer;
+    border-radius: 20px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.recipe-card .card-body {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.recipe-card .card-title {
+    margin: 0 !important;
+    word-break: break-word;
+    width: 100%;
+}
+
+.recipe-card:hover {
+    transform: translateY(-10px) scale(1.02);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1) !important;
+}
+
+.recipe-card img {
+    transition: transform 0.5s ease;
+}
+
+.recipe-card:hover img {
+    transform: scale(1.1);
+}
+
+.btn-success {
+    transition: all 0.3s ease;
+    border-radius: 50px;
+    padding: 12px 30px;
+}
+
+.btn-success:hover {
+    transform: translateX(5px);
+    box-shadow: 0 10px 20px rgba(25, 135, 84, 0.2);
+}
+
+.stat-item {
+    animation: bounceIn 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) both;
+}
+
+@keyframes bounceIn {
+    from {
+        opacity: 0;
+        transform: scale(0.5);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.marquee-container {
+    overflow: hidden;
+    white-space: nowrap;
+    padding: 20px 0;
+}
+
+.testimonial-card {
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    border: 1px solid rgba(0, 0, 0, 0.05) !important;
+}
+
+.testimonial-card:hover {
+    transform: translateY(-12px) scale(1.02);
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.1) !important;
+    background-color: #fff !important;
+}
+
+.testimonial-card-wrapper {
+    animation: fadeIn 0.8s ease both;
+}
+
+.testimonial-card-wrapper:nth-child(2) {
+    animation-delay: 0.2s;
+}
+
+.testimonial-card-wrapper:nth-child(3) {
+    animation-delay: 0.4s;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
